@@ -2,7 +2,10 @@
   <div id="app">
     <Toolbar></Toolbar>
     <NoteList></NoteList>
+    <button @click="increment">+</button>
+    <button @click="decrement">-</button>
     <Editor></Editor>
+    
   </div>
 </template>
 
@@ -16,7 +19,12 @@ export default {
     Toolbar,
     NoteList,
     Editor
-  }
+  },
+  computed:{
+    count(){
+      return this.$store.state.count
+    }
+  },
 }
 </script>
 
