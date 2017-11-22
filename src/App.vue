@@ -4,8 +4,8 @@
     <NoteList></NoteList>
     <button @click="increment">+</button>
     <button @click="decrement">-</button>
+    <p>{{count}}</p>
     <Editor></Editor>
-    
   </div>
 </template>
 
@@ -25,6 +25,14 @@ export default {
       return this.$store.state.count
     }
   },
+  methods:{
+    increment(){
+      this.$store.commit('increment')
+    },
+    decrement(){
+      this.$store.commit('decrement')
+    }
+  }
 }
 </script>
 
