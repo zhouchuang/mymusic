@@ -1,52 +1,76 @@
 <template>
     <div id="notes-list">
-        <div id="list-header">
-            <h2>{{name}}|username</h2>
-            <div class="btn-group">
-                <button type="button" class="btn btn-primary" @click="show(all)">所有笔记</button>
-                <button type="button" class="btn btn-primary" @click="show(favor)">喜欢的</button>
-            </div>
-        </div>
         <div class="container">
             <ul class="list-group">
-               <li class="list-group-item" v-for="item in items">{{item.content}}</li class="list-group-item" >
+               <li class="list-group-li" v-for="item in notes">
+                    <span v-if="activeNote.id === item.id" class="list select">{{item.title}}</span>
+                    <a v-else   href="#" class="list other"   @click="updateActiveNote(item)" >{{item.title}}</a>
+               </li class="list-group-li" >
             </ul>
         </div>
     </div>
 </template>
 <script>
+    import {mapActions,mapGetters} from 'vuex'
     export default{
         name:'notelist',
-        data(){
-            return {
-                name:"NoteList",
-                items:[{
-                    id:1,
-                    content:"第一条消息"
-                },{
-                    id:2,
-                    content:"第二条消息"
-                }]
-            }
+        
+        computed:{
+          notes(){
+            return this.$store.getters.notes
+          },
+          activeNote(){
+          	return this.$store.getters.activeNote
+          }
         },
-        methosd:{
+        methods:{
             show:function(type){
                 console.log(type);
+            },
+            updateActiveNote:function(item){
+               this.$store.commit('SET_ACTIVE_NOTE', item)
             }
         }
     }
 </script>
 <style>
-    #notes-list .container {
-      height: calc(100% - 137px);
-      max-height: calc(100% - 137px);
-      overflow: auto;
-     width: 100%;
-     padding: 0;
+#notes-list .container {
+    height: calc(100% - 137px);
+    max-height: calc(100% - 137px);
+    overflow: auto;
+    width: 100%;
+    padding: 0;
 }
 
-#notes-list .container .list-group-item {
-  border: 0;
-  border-radius: 0;
+#notes-list .container ul{
+    list-style: none;
+    margin:0;
+    padding: 0;
+}
+
+#notes-list .container .list-group-li {
+    border: 0;
+    border-radius: 0;
+    display: list-item;
+    text-align: -webkit-match-parent;
+}
+#notes-list .container .list-group-li .list{
+    display: block;
+    width: 100%;
+    min-height: 50px;
+    padding: 14px 20px;
+    border-bottom: 1px solid #CBCBCB;
+    color: #646469;
+    font-size: 14px;
+}
+#notes-list .container .list-group-li .other {
+    text-decoration: none;
+    outline: none;
+    background-color: transparent;
+    cursor: auto;
+}
+#notes-list .container .list-group-li .select{
+    background: #e4f7ea;
+    border-top: 1px solid #CBCBCB;
 }
 </style>

@@ -1,12 +1,13 @@
 <template>
  <div id="toolbar">
     <i @click="addNote" class="glyphicon glyphicon-plus"></i>
-    <i @click="tooglefavorite" class="glyphicon glyphicon-star"></i>
-    <i @click="deleteNote" class="glyphicon glyphicon-remove"></i>
+    <i @click="addNote" class="glyphicon glyphicon-star"></i>
+    <i @click="addNote" class="glyphicon glyphicon-remove"></i>
  </div> 
 </template>
 
 <script>
+import {mapActions,mapGetters} from 'vuex'
 export default {
   name:'hello',
   data(){
@@ -14,17 +15,7 @@ export default {
           msg:'Welcome to My vue.js App'
       }
   },
-  methods:{
-      addNote:function(){
-          console.log('addNote');
-      },
-      tooglefavorite:function(){
-          console.log('tooglefavorite');
-      },
-      deleteNote:function(){
-          console.log('deleteNote');
-      }
-  }
+   methods:mapActions(['addNote'])
 }
 </script>
 

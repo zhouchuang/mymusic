@@ -2,9 +2,6 @@
   <div id="app">
     <Toolbar></Toolbar>
     <NoteList></NoteList>
-    <button @click="increment">+</button>
-    <button @click="decrement">-</button>
-    <p>{{count}}</p>
     <Editor></Editor>
   </div>
 </template>
@@ -66,8 +63,9 @@ body {
   font-weight: 400;
 }
 #note-editor {
+  margin-left: 5px;
   min-width: 600px;
   height: 100%;
-  margin-left: 380px;
+  float:left;
 }
 </style>
