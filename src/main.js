@@ -4,6 +4,7 @@ import Vue from 'vue'
 import App from './App'
 import Vuex from 'vuex'
 import store from './vuex/store.js'
+import filters from './util/filter'
 Vue.config.productionTip = false
 /* eslint-disable no-new */
 new Vue({
@@ -11,4 +12,7 @@ new Vue({
   template: '<App/>',
   store,
   components: { App }
+})
+Object.keys(filters).forEach(function (key, index, arr) {
+  Vue.filter(key, filters[key]);
 })

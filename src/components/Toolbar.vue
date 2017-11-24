@@ -1,8 +1,8 @@
 <template>
  <div id="toolbar">
     <i @click="addNote" class="glyphicon glyphicon-plus"></i>
-    <i @click="addNote" class="glyphicon glyphicon-star"></i>
-    <i @click="addNote" class="glyphicon glyphicon-remove"></i>
+    <i @click="deleteNode" class="glyphicon glyphicon-remove"></i>
+    <i @click="starNoteList" v-bind:class="[glyphicon,heart,star==true?starClass:'']" ></i>
  </div> 
 </template>
 
@@ -12,10 +12,17 @@ export default {
   name:'hello',
   data(){
       return {
-          msg:'Welcome to My vue.js App'
+         starClass:'star',
+         glyphicon:'glyphicon', 
+         heart:'glyphicon-heart'
       }
   },
-   methods:mapActions(['addNote'])
+  computed:{
+    star(){
+      return this.$store.state.isStar;
+    }
+  },
+  methods:mapActions(['addNote','deleteNode','starNoteList'])
 }
 </script>
 
@@ -30,6 +37,9 @@ export default {
 
 #toolbar i:hover {
   opacity: 1;
+}
+.star{
+  color:#c50f0f;
 }
 </style>
 
