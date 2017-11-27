@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import { removeByValue,getStarNotes } from './../util/util'
-import {noteList} from './../service/getData'
+import {noteListApi} from './../service/getData'
 Vue.use(Vuex)
 
 const store  = new Vuex.Store({
@@ -9,31 +9,32 @@ const store  = new Vuex.Store({
         isStar:false,
         count:3,
         activeNote:{
-            id:1,
-            title:"Java",
-            content:"一切皆是对象",
-            time:new Date(new Date().getTime()-4*3600*24*1000),
-            star:true
+            // id:1,
+            // title:"Java",
+            // content:"一切皆是对象",
+            // time:new Date(new Date().getTime()-4*3600*24*1000),
+            // star:true
         },
-        notes:[{
-            id:1,
-            title:"Java",
-            content:"一切皆是对象",
-            time:new Date(new Date().getTime()-4*3600*24*1000),
-            star:true
-        },{
-            id:2,
-            title:"C++",
-            content:"底层操作",
-            time:new Date(new Date().getTime()-3*3600*24*1000),
-            star:false
-        },{
-            id:3,
-            title:"Python",
-            content:"不要重复造轮子",
-            time:new Date(new Date().getTime()-2*3600*24*1000),
-            star:false
-        }]
+        notes:[]
+        // {
+        //     id:1,
+        //     title:"Java",
+        //     content:"一切皆是对象",
+        //     time:new Date(new Date().getTime()-4*3600*24*1000),
+        //     star:true
+        // },{
+        //     id:2,
+        //     title:"C++",
+        //     content:"底层操作",
+        //     time:new Date(new Date().getTime()-3*3600*24*1000),
+        //     star:false
+        // },{
+        //     id:3,
+        //     title:"Python",
+        //     content:"不要重复造轮子",
+        //     time:new Date(new Date().getTime()-2*3600*24*1000),
+        //     star:false
+        // }
     },
     getters:{
         notes: state => state.notes,
@@ -75,14 +76,14 @@ const store  = new Vuex.Store({
         },
         SHOW_STAR:(state)=>{
             state.isStar = !state.isStar;
+        },
+        GET_NOTELIST:(state,newNotes)=>{
+            state.notes = newNotes;
+            state.activeNote = newNotes[0];
         }
+
     },
     actions:{
-        getNoteList:({commit, state})=>{
-            noteList(vm).get({}).then(function (res) {
-                console.log(res);
-            })
-        },
         addNote:({commit})=>{
             commit('ADD_NOTE')
         },

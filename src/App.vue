@@ -10,7 +10,6 @@
 import Toolbar from './components/Toolbar.vue'
 import NoteList from './components/NoteList.vue'
 import Editor from './components/Editor.vue'
-import {noteListApi} from  '../service/getDate'
 export default {
   name: 'app',
   components: {
@@ -20,10 +19,11 @@ export default {
   },
   //初始化数据
   created:function(){
-  //  this.$store.dispatch('getNoteList');
-      noteListApi(this).get({}).then(function (res) {
-          console.log(res);
-      })
+     this.$http.get('http://localhost:8081/api/note/noteList').then(response => {
+                this.$store.commit('GET_NOTELIST',response.data);
+           }, response => {
+               console.log("error");
+           });
   },
   computed:{
     count(){
