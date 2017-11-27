@@ -17,6 +17,10 @@ export default {
     NoteList,
     Editor
   },
+  //初始化数据
+  created:function(){
+   this.$store.dispatch('getNoteList');
+  },
   computed:{
     count(){
       return this.$store.state.count

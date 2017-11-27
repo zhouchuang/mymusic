@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import { removeByValue,getStarNotes } from './../util/util'
+import {noteList} from './../service/getData'
 Vue.use(Vuex)
 
 const store  = new Vuex.Store({
@@ -77,6 +78,11 @@ const store  = new Vuex.Store({
         }
     },
     actions:{
+        getNoteList:({commit, state})=>{
+            noteList(this).get({}).then(function (res) {
+                console.log(res);
+            })
+        },
         addNote:({commit})=>{
             commit('ADD_NOTE')
         },
