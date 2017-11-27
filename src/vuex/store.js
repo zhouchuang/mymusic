@@ -79,7 +79,7 @@ const store  = new Vuex.Store({
     },
     actions:{
         getNoteList:({commit, state})=>{
-            noteList(this).get({}).then(function (res) {
+            noteList(vm).get({}).then(function (res) {
                 console.log(res);
             })
         },
