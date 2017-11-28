@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 import { removeByValue,getStarNotes } from './../util/util'
 import {noteListApi} from './../service/getData'
+import axios from 'axios'
 Vue.use(Vuex)
 
 const store  = new Vuex.Store({
@@ -56,6 +57,10 @@ const store  = new Vuex.Store({
         SET_ACTIVE_NOTE:(state,note)=>{
             state.activeNote = note;
         },
+        NEW_NOTE:(state,newNote)=>{
+            state.notes.push(newNote);
+            state.activeNote = newNote;     
+        },
         ADD_NOTE:(state)=>{
             store.commit('increment')
             const  newNote =  {
@@ -85,11 +90,23 @@ const store  = new Vuex.Store({
     },
     actions:{
         addNote:({commit})=>{
-            commit('ADD_NOTE')
+          axios.get('http://localhost:8081/api/note/getNote'
+          ).then((res) => {
+             commit('NEW_NOTE',res.data);
+          }).catch(function (error) {
+            console.log(error);
+          });
         },
-        deleteNode:({commit,dispatch})=>{
-            commit('DELETE_NOTE');
-            dispatch('getActiveNote');
+        deleteNode:({commit,dispatch,state})=>{
+            // commit('DELETE_NOTE');
+            // dispatch('getActiveNote');
+            axios.post('http://localhost:8081/api/note/deleteNote',state.activeNote
+            ).then((res) => {
+                commit('DELETE_NOTE');
+                dispatch('getActiveNote');
+            }).catch(function (error) {
+                console.log(error);
+            });
         },
         getActiveNote:({state,getters})=>{
             for(var note of getters.showNotes){
@@ -106,6 +123,15 @@ const store  = new Vuex.Store({
         },
         starNoteList:({commit})=>{
             commit('SHOW_STAR');
+        },
+        synchronizationData:({commit,state})=>{
+          axios.post('http://localhost:8081/api/note/synchronizationData',
+            state.notes
+          ).then((res) => {
+             commit('GET_NOTELIST',res.data.noteList);
+          }).catch(function (error) {
+            console.log(error);
+          });
         }
     }
 });

@@ -10,6 +10,7 @@
 import Toolbar from './components/Toolbar.vue'
 import NoteList from './components/NoteList.vue'
 import Editor from './components/Editor.vue'
+import axios from 'axios'
 export default {
   name: 'app',
   components: {
@@ -19,11 +20,16 @@ export default {
   },
   //初始化数据
   created:function(){
-     this.$http.get('http://localhost:8081/api/note/noteList').then(response => {
-                this.$store.commit('GET_NOTELIST',response.data);
-           }, response => {
-               console.log("error");
-           });
+
+
+        var params = new URLSearchParams();
+        params.append("name","tom");
+        axios.get('http://localhost:8081/api/note/noteList'
+          ).then((res) => {
+            this.$store.commit('GET_NOTELIST',res.data);
+          }).catch(function (error) {
+            console.log(error);
+          });
   },
   computed:{
     count(){

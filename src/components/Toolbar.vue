@@ -3,6 +3,7 @@
     <i @click="addNote" class="glyphicon glyphicon-plus"></i>
     <i @click="deleteNode" class="glyphicon glyphicon-remove"></i>
     <i @click="starNoteList" v-bind:class="[glyphicon,heart,star==true?starClass:'']" ></i>
+    <i @click="synchronizationData" class="glyphicon glyphicon-refresh"></i>
  </div> 
 </template>
 
@@ -22,7 +23,7 @@ export default {
       return this.$store.state.isStar;
     }
   },
-  methods:mapActions(['addNote','deleteNode','starNoteList'])
+  methods:mapActions(['addNote','deleteNode','starNoteList','synchronizationData'])
 }
 </script>
 

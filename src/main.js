@@ -5,9 +5,11 @@ import App from './App'
 import Vuex from 'vuex'
 import store from './vuex/store.js'
 import filters from './util/filter'
+import $ from 'jquery'
+import axios from 'axios'
 Vue.config.productionTip = false
 /* eslint-disable no-new */
-window.vm = new Vue({
+new Vue({
   el: '#app',
   template: '<App/>',
   store,
