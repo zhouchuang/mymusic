@@ -84,7 +84,7 @@ const store  = new Vuex.Store({
         },
         GET_NOTELIST:(state,newNotes)=>{
             state.notes = newNotes;
-            state.activeNote = newNotes[0];
+            // state.activeNote = newNotes[0];
         }
 
     },
@@ -98,8 +98,6 @@ const store  = new Vuex.Store({
           });
         },
         deleteNode:({commit,dispatch,state})=>{
-            // commit('DELETE_NOTE');
-            // dispatch('getActiveNote');
             axios.post('http://localhost:8081/api/note/deleteNote',state.activeNote
             ).then((res) => {
                 commit('DELETE_NOTE');
@@ -110,7 +108,7 @@ const store  = new Vuex.Store({
         },
         getActiveNote:({state,getters})=>{
             for(var note of getters.showNotes){
-                if(note==state.activeNote){
+                if(note.id==state.activeNote.id){
                     return ;
                 }    
             }
@@ -124,11 +122,12 @@ const store  = new Vuex.Store({
         starNoteList:({commit})=>{
             commit('SHOW_STAR');
         },
-        synchronizationData:({commit,state})=>{
+        synchronizationData:({commit,state,dispatch})=>{
           axios.post('http://localhost:8081/api/note/synchronizationData',
             state.notes
           ).then((res) => {
              commit('GET_NOTELIST',res.data.noteList);
+             dispatch('getActiveNote');
           }).catch(function (error) {
             console.log(error);
           });
