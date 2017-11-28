@@ -21,15 +21,15 @@ export default {
   //初始化数据
   created:function(){
 
-
-        var params = new URLSearchParams();
-        params.append("name","tom");
-        axios.get('http://localhost:8081/api/note/noteList'
-          ).then((res) => {
-            this.$store.commit('GET_NOTELIST',res.data);
-          }).catch(function (error) {
-            console.log(error);
-          });
+        this.$store.dispatch('getNoteList');
+        // var params = new URLSearchParams();
+        // params.append("name","tom");
+        // axios.get('http://localhost:8081/api/note/noteList'
+        //   ).then((res) => {
+        //     this.$store.commit('GET_NOTELIST',res.data);
+        //   }).catch(function (error) {
+        //     console.log(error);
+        //   });
   },
   computed:{
     count(){

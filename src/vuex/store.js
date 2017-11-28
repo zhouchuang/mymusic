@@ -131,6 +131,15 @@ const store  = new Vuex.Store({
           }).catch(function (error) {
             console.log(error);
           });
+        },
+        getNoteList:({commit,dispatch})=>{
+            axios.get('http://localhost:8081/api/note/noteList'
+          ).then((res) => {
+             commit('GET_NOTELIST',res.data);
+             dispatch('getActiveNote');
+          }).catch(function (error) {
+            console.log(error);
+          });
         }
     }
 });
